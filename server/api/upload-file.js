@@ -25,7 +25,7 @@ export default defineEventHandler(async (event) => {
 
       console.log("Fichiers reçus :", files); // Inspectez les fichiers reçus
 
-      const file = files.file; // Assurez-vous que le champ correspond au FormData envoyé
+      const file = files.PersistentFile ; // Assurez-vous que le champ correspond au FormData envoyé
       if (!file || !file.filepath) {
         reject(new Error("Fichier non trouvé ou chemin manquant"));
         return;
