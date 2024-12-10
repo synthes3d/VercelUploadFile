@@ -10,9 +10,8 @@ export default defineEventHandler(async (event) => {
     throw new Error("Missing BLOB_READ_WRITE_TOKEN");
   }
 
-  // Configurer formidable
   const form = formidable({
-    multiples: false, // Un seul fichier
+    multiples: false, // Ne permet qu'un seul fichier
     keepExtensions: true, // Conserve les extensions
   });
 
@@ -23,9 +22,15 @@ export default defineEventHandler(async (event) => {
         return;
       }
 
-      console.log("Fichiers reçus :", files); // Inspectez les fichiers reçus
+      console.log("Fichiers reçus :", files); 
 
-      const file = files.PersistentFile ; // Assurez-vous que le champ correspond au FormData envoyé
+      const fileArray = files.file; 
+      if (!fileArray || fileArray.length === 0) {
+        reject(new Error("Aucun fichier trouvé"));
+        return;
+      }
+
+      const file = fileArray[0]; //suelement un fichier
       if (!file || !file.filepath) {
         reject(new Error("Fichier non trouvé ou chemin manquant"));
         return;
