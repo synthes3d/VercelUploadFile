@@ -45,6 +45,7 @@ export default defineEventHandler(async (event) => {
         const blob = await put(file.originalFilename, fileContent, {
           contentType,
           access: "public",
+          multipart : true
         });
 
         resolve(blob); // Retourne le blob
